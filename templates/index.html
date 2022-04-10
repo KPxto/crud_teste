@@ -13,7 +13,28 @@
             <div class="jumbotron p-3">
                 
                 <h2>Malha Linehaul <button type="button" class="btn btn-success float-right"
-                data-toggle="modal" data-target="#exemplo">Criar Nova Rota</button> </h2>
+                data-toggle="modal" data-target="#mymodal">Criar Nova Rota</button> </h2>
+
+
+                {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+
+                {% for message in messages %}
+
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                        <span aria-hidden="true">x</span>
+                    </button>
+
+                    {{message}}
+
+                </div>
+
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
 
                 <table class="table table-hover table-dark">
                     <tr>
@@ -37,74 +58,184 @@
                         </td>
                     </tr>
 
+
+                    <!-- Modal Edit Employee-->
+<div id="modaledit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+  
+       <div class="modal-content">
+  
+  
+          <div class="modal-header">
+  
+  
+             <h4 class="modal-title">Nova Versão</h4>
+  
+  
+          </div>
+  
+  
+          <div class="modal-body">
+  
+  
+             <form action="" method="POST">
+  
+  
+                <div class="form-group">
+  
+  
+                   <label>Rota:</label>
+                    <input type="hidden"  name="id" value="">
+  
+                   <input type="text" class="form-control" name="rota" value="AJU02A">
+  
+  
+                </div>
+  
+  
+  
+                <div class="form-group">
+  
+  
+                   <label>Corte:</label>
+  
+                   <input type="text" class="form-control" name="corte" value="10:00">
+  
+  
+                </div>
+  
+  
+                <div class="form-group">
+  
+  
+                   <label>Frequência:</label>
+  
+                   <input type="text" class="form-control" name="freq" value="Seg,Qua, Sex">
+  
+  
+                </div>
+
+                <div class="form-group">
+  
+  
+                    <label>Origem:</label>
+   
+                    <input type="text" class="form-control" name="origem" value="Salvador">
+   
+   
+                 </div>
+
+                 <div class="form-group">
+  
+  
+                    <label>Destino:</label>
+   
+                    <input type="text" class="form-control" name="destino" value="Aracaju">
+   
+   
+                 </div>
+  
+  
+                <div class="form-group">
+  
+  
+                   <button class="btn btn-primary" type="submit">Update</button>
+  
+  
+                </div>
+  
+  
+             </form>
+  
+  
+          </div>
+  
+  
+          <div class="modal-footer">
+  
+  
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  
+  
+          </div>
+  
+  
+       </div>
+  
+  
+    </div>
+  
+ </div>
+
+
+
                 </table>
 
+            </div>       
+
+        </div>
+
+    </div>
+
+</div>
+
+                    <!-- Modal Nova Rota-->
+<div id="mymodal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Nova Rota</h4>
+
             </div>
+            <div class="modal-body">
+
+                <form action="{{url_for('insert')}}" method="POST">
 
 
-
-            <div id="exemplo" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-
-                            <h4 class="modal-title">Nova Rota</h4>
-
-                        </div>
-                        <div class="modal-body">
-
-                            <form action="" method="POST">
-
-
-                                <div class="form-group">
-                                    <label>Rota:</label>
-                                    <input type="text" class="form-control" name="rota" required="1">
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Corte:</label>
-                                    <input type="text" class="form-control" name="corte" required="1">
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Frequência:</label>
-                                    <input type="text" class="form-control" name="freq" required="1">
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Origem:</label>
-                                    <input type="text" class="form-control" name="origem" required="1">
-
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Destino:</label>
-                                    <input type="text" class="form-control" name="destino" required="1">
-
-                                </div>
-
-                                <div class="form-group">
-                                    <button class="btn btn-primary" type="submit">Criar Nova Rota</button>
-
-                                </div>
-                            
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-
-                        </div>
+                    <div class="form-group">
+                        <label>Rota:</label>
+                        <input type="text" class="form-control" name="rota" required="1">
 
                     </div>
 
-                </div>
+                    <div class="form-group">
+                        <label>Corte:</label>
+                        <input type="time" class="form-control" name="corte" required="1">
 
-            </div>            
-    
-            
+                    </div>
+
+                    <div class="form-group">
+                        <label>Frequência:</label>
+                        <input type="text" class="form-control" name="freq" required="1">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Origem:</label>
+                        <input type="text" class="form-control" name="origem" required="1">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Destino:</label>
+                        <input type="text" class="form-control" name="destino" required="1">
+
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Criar Nova Rota</button>
+
+                    </div>
+                
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+            </div>
+
         </div>
 
     </div>
