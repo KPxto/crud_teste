@@ -1,73 +1,35 @@
-<div id="mymodal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-       <div class="modal-content">
-          <div class="modal-header">
-  
-             <h4 class="modal-title">Add Employee</h4>
-          </div>
-          <div class="modal-body">
-  
-             <form action="{{url_for('insert')}}" method="POST">
-  
-  
-                <div class="form-group">
-  
-                   <label>Name:</label>
-                   <input type="text" class="form-control" name="name" required="1">
-  
-  
-                </div>
-  
-  
-                 <div class="form-group">
-  
-  
-                   <label>Email:</label>
-                   <input type="email" class="form-control" name="email" required="1">
-  
-  
-                </div>
-  
-  
-                 <div class="form-group">
-  
-  
-                   <label>Phone:</label>
-                   <input type="number" class="form-control" name="phone" required="1">
-  
-  
-                </div>
-  
-  
-  
-                <div class="form-group">
-  
-  
-                   <button class="btn btn-primary" type="submit">Add Employee</button>
-  
-  
-                </div>
-  
-  
-             </form>
-  
-  
-          </div>
-  
-  
-          <div class="modal-footer">
-  
-  
-             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-  
-  
-          </div>
-  
-  
-       </div>
-  
-  
-    </div>
-  
-  
- </div>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Sign In</h1>
+    <form action= "" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: orange;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p> 
+            {{ form.remember_me() }} {{ form.remember_me.label }}<br>
+            {% for error in form.remember_me.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p> 
+            {{ form.submit() }}<br>
+            {% for error in form.submit.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+    </form>
+    <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+{% endblock %}

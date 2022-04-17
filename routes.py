@@ -1,39 +1,5 @@
-from cProfile import run
-from crypt import methods
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
-from forms import LoginForm
-from flask_migrate import Migrate
-#import models
 
 
-app = Flask(__name__)
-app.secret_key = "Senha"
-
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://kaio:25123436@localhost:5432/postgres'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY '] = 'La Senha'
-
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-
-class Data(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    rota = db.Column(db.String(20))
-    corte = db.Column(db.String(20))
-    freq = db.Column(db.String(30))
-    origem = db.Column(db.String(50))
-    destino = db.Column(db.String(50))
-
-    def __init__(self, rota, corte, freq, origem, destino):
-        self.rota = rota
-        self.corte = corte
-        self.freq = freq
-        self.origem = origem
-        self.destino = destino
-
-        
 @app.route('/')
 def index():
     all_data = Data.query.all()
@@ -94,7 +60,3 @@ def login():
         flash(f'Acesso solicitado por {form.username.data}, lembrar-me={form.remember_me.data}')
         return redirect(url_for('index'))
     return render_template('login.html', form=form)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

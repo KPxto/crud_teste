@@ -46,21 +46,22 @@
                         <th>Ações</th>
                     </tr>
 
+                    {% for row in malha %}
                     <tr>
-                        <td>AJU02A</td>
-                        <td>10:00</td>
-                        <td>Seg, Ter, Qua, Sex</td>
-                        <td>Salvador</td>
-                        <td>Aracaju</td>
+                        <td>{{row.rota}}</td>
+                        <td>{{row.corte}}</td>
+                        <td>{{row.freq}}</td>
+                        <td>{{row.origem}}</td>
+                        <td>{{row.destino}}</td>
                         <td>
-                            <a href="" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit">Nova Versão</a>
-                            <a href="" class="btn btn-danger btn-xs" onclick="return confirm('Tem certeza?')" >Cancelar</a>
+                            <a href="/update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}">Nova Versão</a>
+                            <a href="/delete/{{row.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Tem certeza?')" >Cancelar</a>
                         </td>
                     </tr>
 
 
                     <!-- Modal Edit Employee-->
-<div id="modaledit" class="modal fade" role="dialog">
+<div id="modaledit{{row.id}}" class="modal fade" role="dialog">
     <div class="modal-dialog">
   
   
@@ -79,16 +80,16 @@
           <div class="modal-body">
   
   
-             <form action="" method="POST">
+             <form action="{{url_for('update')}}" method="POST">
   
   
                 <div class="form-group">
   
   
                    <label>Rota:</label>
-                    <input type="hidden"  name="id" value="">
+                    <input type="hidden"  name="id" value="{{row.id}}">
   
-                   <input type="text" class="form-control" name="rota" value="AJU02A">
+                   <input type="text" class="form-control" name="rota" value="{{row.rota}}">
   
   
                 </div>
@@ -100,7 +101,7 @@
   
                    <label>Corte:</label>
   
-                   <input type="text" class="form-control" name="corte" value="10:00">
+                   <input type="text" class="form-control" name="corte" value="{{row.corte}}">
   
   
                 </div>
@@ -111,7 +112,7 @@
   
                    <label>Frequência:</label>
   
-                   <input type="text" class="form-control" name="freq" value="Seg,Qua, Sex">
+                   <input type="text" class="form-control" name="freq" value="{{row.freq}}">
   
   
                 </div>
@@ -121,7 +122,7 @@
   
                     <label>Origem:</label>
    
-                    <input type="text" class="form-control" name="origem" value="Salvador">
+                    <input type="text" class="form-control" name="origem" value="{{row.origem}}">
    
    
                  </div>
@@ -131,7 +132,7 @@
   
                     <label>Destino:</label>
    
-                    <input type="text" class="form-control" name="destino" value="Aracaju">
+                    <input type="text" class="form-control" name="destino" value="{{row.destino}}">
    
    
                  </div>
@@ -168,6 +169,7 @@
   
  </div>
 
+                    {% endfor %}
 
 
                 </table>
@@ -243,6 +245,3 @@
 </div>
 
 {% endblock %}
-
-
-
